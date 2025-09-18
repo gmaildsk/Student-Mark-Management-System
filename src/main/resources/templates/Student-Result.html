@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .details {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .details p {
+            font-size: 16px;
+            margin: 10px 0;
+            padding: 8px;
+            background: #f9fafc;
+            border-left: 4px solid #4a90e2;
+            border-radius: 6px;
+        }
+
+        strong {
+            color: #333;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        a:hover {
+            background: #357ABD;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, <span th:text="${heyman.sname}"></span> 🎓</h2>
+
+        <p th:if="${error}" th:text="${error}" class="error"></p>
+
+        <div class="details">
+            <p><strong>Register No:</strong> <span th:text="${heyman.rno}"></span></p>
+            <p><strong>Name:</strong> <span th:text="${heyman.sname}"></span></p>
+            <p><strong>Mark 1:</strong> <span th:text="${heyman.mark1}"></span></p>
+            <p><strong>Mark 2:</strong> <span th:text="${heyman.mark2}"></span></p>
+            <p><strong>Total:</strong> <span th:text="${heyman.total}"></span></p>
+            <p><strong>Result:</strong> <span th:text="${heyman.result}"></span></p>
+        </div>
+
+        <a th:href="@{/studentlogin}">🔒 Logout</a>
+    </div>
+</body>
+</html>

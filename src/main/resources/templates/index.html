@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Type</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 2rem 2.5rem;
+            border-radius: 14px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 250px;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 34px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        button:first-child {
+            background: #4a90e2;
+            color: white;
+        }
+
+        button:first-child:hover {
+            background: #357ABD;
+        }
+
+        button:last-child {
+            background: #50c878;
+            color: white;
+        }
+
+        button:last-child:hover {
+            background: #3ca466;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome</h2>
+        <div class="button-container">
+            <button onclick="window.location.href='/stafflogin'">Go to Staff Login</button>
+            <button onclick="window.location.href='/studentlogin'">Go to Student Login</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            margin-bottom: 1rem;
+            background: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #357ABD;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #4a90e2;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #f1f5ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Staff Dashboard</h2>
+
+        <!-- Display messages -->
+        <p th:if="${staffname}" 
+        	th:text="'Staff Name: ' + ${staffname}+ ', Staff code: '+ ${staffcode}" 
+        	class="message success"
+        	style="text-align:left;"></p>
+        <p th:if="${msg}" th:text="${msg}" class="message success"></p>
+
+        <!-- Add student button -->
+        <a th:href="@{/showNewStudentForm}" class="btn">+ Add Student</a>
+
+        <!-- Student table -->
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Register Number</th>
+                <th>Student Name</th>
+                <th>Mark 1</th>
+                <th>Mark 2</th>
+                <th>Total</th>
+                <th>Result</th>
+                <!--  <th>Password</th>-->
+            </tr>
+            <tr th:each="student : ${listStudents}">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.rno}"></td>
+                <td th:text="${student.sname}"></td>
+                <td th:text="${student.mark1}"></td>
+                <td th:text="${student.mark2}"></td>
+                <td th:text="${student.total}"></td>
+                <td th:text="${student.result}"></td>
+                <!-- <td th:text="${student.password}"></td> -->
+            </tr>
+        </table><br>
+            <a th:href="@{/stafflogout}" class="btn">Logout</a>
+    </div>
+</body>
+</html>

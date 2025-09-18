@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Login</title>
+    <style>
+        .home-link{
+    	font-size:36px;
+    	color:#185a9d;
+    	text-decoration:none;
+    	}
+    	.top-row{
+    		position:absolute;
+    		bottom: 280px;
+    		right: 10px;
+    		/*text-align: right; /*aligns the home icon to the left inside the container*/
+    		/*margin-bottom: 20px;*/
+    		}
+    	
+    	.home-link:hover{
+    		color: #0f3d6b;
+    	}
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;/* ensures child elements can be positioned */
+            background: #fff;
+            padding: 1.5rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            width: 230px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0.2rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: .7rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        button {
+            width: 50%;
+            padding: 10px;
+            background: #4a90e2;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #357ABD;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #4a90e2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .success {
+            color: green;
+            margin-bottom: 1rem;
+        }
+
+        .error {
+            color: red;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+       	<div class="top-row">
+    		<a th:href="@{/home}" class="home-link">🏠</a>
+    		</div>
+        <h2>Student Login</h2>
+
+        <p th:if="${Passwordsuccess}" th:text="${Passwordsuccess}" class="success"></p>
+
+        <form th:action="@{/studentlogin}" th:object="${stud}" method="post">
+            <div>
+                <label>Register No.</label>
+                <input type="number" name="rno" required />
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" required />
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+
+        <a href="/set-password">Create or update password</a>
+
+        <p th:if="${error}" th:text="${error}" class="error"></p>
+    </div>
+</body>
+</html>

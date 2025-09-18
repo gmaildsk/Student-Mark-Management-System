@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff Login</title>
+    <style>
+    .home-link{
+    	font-size:36px;
+    	color:#185a9d;
+    	text-decoration:none;
+    	}
+    	.top-row{
+    		text-align: right; /*aligns the home icon to the left inside the container*/
+    		margin-bottom: -20px;
+    		}
+    	
+    	.home-link:hover{
+    		color: #0f3d6b;
+    	}
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            display: flex;  justify-content: center; align-items: center; height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+        	position: relative;/* ensures child elements can be positioned */
+            background: #fff; padding: 0.5rem 2.5rem; border-radius: 20px;  
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25); width: 300px;  text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;  color: #333;  font-size: 24px;
+        }
+
+        label {
+            display: block; text-align: left;
+            margin-bottom: 0.3rem; font-weight: bold; color: #555;
+        }
+
+        input {
+            width: 90%; padding: 10px; margin-bottom: 1.2rem;
+            border: 1px solid #ccc; border-radius: 8px;           transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #185a9d; outline: none;
+        }
+
+        button {
+            width: 60%; padding: 12px; background: #185a9d; color: white;
+            font-size: 16px; border: none; border-radius: 8px;
+            cursor: pointer; transition: background 0.3s;  margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background: #0f3d6b;
+        }
+
+        a {
+            display: block; margin-top: 1rem; color: #185a9d;
+            text-decoration: none; font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .success {
+            color: green; margin-bottom: 1rem;
+        }
+
+        .error {
+            color: red; margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+    	<div class="top-row">
+    		<a th:href="@{/home}" class="home-link">🏠</a>
+    		</div>
+        <h2>Staff Login</h2>
+		
+        <!-- Display success message -->
+         <p th:if="${logoutmsg}" th:text="${logoutmsg}" class="success"></p> 
+         <!--<p th:if="${staff}" th:text="${staff}" class="success"></p>-->
+
+        <form th:action="@{/stafflogin}" th:object="${staff}" method="post">
+            <div>
+                <label>Staff code</label>
+                <input type="number" th:field="*{staffcode}" required min="1000" max="9999"/>
+                 <p th:if="${#fields.hasErrors('staffcode')}" th:errors="*{staffcode}" class="error"></p>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" th:field="*{password}" required />
+                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></p>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <a href="/staff/register">New staff? Register here.</a>
+        <a href="/update-password">Forgot password ? Update here.</a>
+        
+        <p th:if="${Passwordsuccess}" th:text="${Passwordsuccess}" class="success"></p>
+        <p th:if="${error}" th:text="${error}" class="error"></p>
+        <p th:if="${regnewmsg}" th:text="${regnewmsg}" class="success"></p> 
+    </div>
+</body>
+</html>
