@@ -1,15 +1,13 @@
 package com.example.controller;
 
-//import com.example.model.StaffModel;
+import com.example.model.StudentMarks;
 import com.example.model.StudentModel;
 import com.example.service.StudentService;
 
 import jakarta.validation.Valid;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +27,27 @@ public class AddStudentController {
 			model.addAttribute("listStudents", service.getAllStudents());
 			return "Staff-Result";
 		}
+		
 		@GetMapping("/showNewStudentForm")
 		public String showNewStudentForm(Model model) {
+			
 			StudentModel sm=new StudentModel();
+			
+			// Add 1 empty StudentMarks row to sm
+			sm.getSubjects().add(new StudentMarks());
+			
 			model.addAttribute("smkey", sm);
 			return "Add-Student";
 		}
 		
+		@PostMapping("/addSubjectRow")
+		public String addSubject(@ModelAttribute("smkey") StudentModel sm, Model model) {
+			//StudentModel sm=new StudentModel();
+			
+			sm.getSubjects().add(new StudentMarks());
+			model.addAttribute("smkey", sm);
+			return "Add-Student";
+		}
 		
 		@PostMapping("/savestudent")
 		public String saveStudent(@Valid @ModelAttribute("smkey") StudentModel sm, BindingResult result, Model model) {

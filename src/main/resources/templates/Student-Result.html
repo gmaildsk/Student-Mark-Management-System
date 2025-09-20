@@ -72,15 +72,31 @@
 
         <p th:if="${error}" th:text="${error}" class="error"></p>
 
-        <div class="details">
-            <p><strong>Register No:</strong> <span th:text="${heyman.rno}"></span></p>
-            <p><strong>Name:</strong> <span th:text="${heyman.sname}"></span></p>
-            <p><strong>Mark 1:</strong> <span th:text="${heyman.mark1}"></span></p>
-            <p><strong>Mark 2:</strong> <span th:text="${heyman.mark2}"></span></p>
-            <p><strong>Total:</strong> <span th:text="${heyman.total}"></span></p>
-            <p><strong>Result:</strong> <span th:text="${heyman.result}"></span></p>
-        </div>
-
+<!-- Basic Student info -->
+        <div class="details" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+        <div style="background: #f9fafc; border-left: 4px solid #4a90e2; padding: 8px; border-radius:6px;">
+        	<strong>Register No:</strong> <span th:text="${heyman.rno}"></span></div>
+         <div style="background: #f9fafc; border-left: 4px solid #4a90e2; padding: 8px; border-radius:6px;">
+            <strong>Name:</strong> <span th:text="${heyman.sname}"></span>></div>
+            </div>
+<!-- Mark Table -->
+		<h3 style="margin-top: 20px;">📘 Subjects & Marks</h3>
+         <table style="width:100%; border-collapse: collapse; margin-top:10px;">
+         <thead>
+         <tr style="background: #f0f0f0;">
+         <th style ="border:1px solid #ccc; padding:8px;">Semester</th>
+         <th style="border:1px solid #ccc; padding:8px;">Subject Code</th>
+         <th style="border:1px solid #ccc; padding:8px;">Mark</th>
+         </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sub:${heyman.subjects}">
+        <td style= "border:1px solid #ccc; padding:6px;" th:text="${sub.semester}"></td>
+        <td style= "border:1px solid #ccc; padding:6px;" th:text="${sub.subjectCode}"></td>
+        <td style= "border:1px solid #ccc; padding:6px;" th:text="${sub.mark}"></td>
+        </tr>
+        </tbody>
+        </table>  
         <a th:href="@{/studentlogin}">🔒 Logout</a>
     </div>
 </body>

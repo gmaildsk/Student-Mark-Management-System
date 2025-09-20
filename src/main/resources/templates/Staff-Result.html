@@ -93,23 +93,25 @@
         <!-- Student table -->
         <table>
             <tr>
-                <th>ID</th>
+                <!-- <th>ID</th>-->
                 <th>Register Number</th>
                 <th>Student Name</th>
+	<!-- 	<th>Semester</th>
                 <th>Mark 1</th>
                 <th>Mark 2</th>
                 <th>Total</th>
-                <th>Result</th>
+                <th>Result</th>-->
                 <!--  <th>Password</th>-->
             </tr>
             <tr th:each="student : ${listStudents}">
-                <td th:text="${student.id}"></td>
+                <!-- <td th:text="${student.id}"></td>-->
                 <td th:text="${student.rno}"></td>
                 <td th:text="${student.sname}"></td>
+		<!-- <td th:text="${student.semester}"></td>
                 <td th:text="${student.mark1}"></td>
                 <td th:text="${student.mark2}"></td>
                 <td th:text="${student.total}"></td>
-                <td th:text="${student.result}"></td>
+                <td th:text="${student.result}"></td>-->
                 <!-- <td th:text="${student.password}"></td> -->
             </tr>
         </table><br>

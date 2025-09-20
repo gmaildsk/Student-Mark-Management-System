@@ -1,119 +1,157 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Student</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            margin: 0;
-            padding: 20px;
-        }
+<title>Add Student</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background: #f4f6f9;
+	margin: 0;
+	padding: 50px;
+}
 
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background: #fff;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
-        }
+.container {
+	max-width: 500px;
+	margin: auto;
+	background: #fff;
+	padding: 1.5rem;
+	border-radius: 12px;
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
 
-        h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #333;
-        }
+h2 {
+	text-align: center;
+	margin-bottom: 1.5rem;
+	color: #333;
+}
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
 
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #444;
-        }
+label {
+	font-weight: bold;
+	margin-bottom: 5px;
+	color: #444;
+}
 
-        input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border 0.3s;
-        }
+input {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 14px;
+	transition: border 0.3s;
+}
 
-        input:focus {
-            border: 1px solid #4a90e2;
-            outline: none;
-        }
+input:focus {
+	border: 1px solid #4a90e2;
+	outline: none;
+}
 
-        button {
-            padding: 8px;
-            background: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
- 
-        button:hover {
-            background: #357ABD;
-        }
-        .error {
-    	color: red;
-    	margin-top: 1rem;
-	}
-	 .success {
-            color: green; margin-bottom: 1rem;
-        }
-    </style>
+button {
+	padding: 8px;
+	background: #4a90e2;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+button:hover {
+	background: #357ABD;
+}
+
+fieldset {
+	border: 2px solid #ddd;
+	padding: 1rem;
+	border-radius: 8px;
+	margin-bottom: 1.5rem;
+}
+
+legend {
+	font-weight: bold;
+	color: #4a90e2;
+	padding: 0 10px;
+}
+
+.error {
+	color: red;
+	margin-top: 1rem;
+}
+
+.success {
+	color: green;
+	margin-bottom: 1rem;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h2>Add Student and Marks</h2>
+	<div class="container">
+		<h2>Add Student and Marks</h2>
+		<form th:action="@{/savestudent}" th:object="${smkey}" method="post">
+			<!-- Student Info -->
+			<fieldset>
+				<legend><b>🎓 Student Details</b></legend>
+				<table><tr>
+						<td><label>Register Number</label></td>
+						<td><input type="text" th:field="*{rno}" style="width: 200px;" /></td>
+					</tr>
+					<tr>
+						<td><label>Student Name</label></td>
+						<td><input type="text" th:field="*{sname}" style="width: 200px;" /></td>
+					</tr>
+				</table>
+			</fieldset>
 
-        <form th:action="@{/savestudent}" th:object="${smkey}" method="post">
+			<!-- Subject Info -->
+			<fieldset>
+				<legend><b>📘 Subjects and Marks</b></legend>
 
-            <div>
-                <label>Register Number</label>
-                <input type="number" th:field="*{rno}" required/>
-                <p th:if="${rnoerror}" th:text="${rnoerror}" class="error"></p>
-                <p th:if="${#fields.hasErrors('rno')}" th:errors="*{rno}" style="color:red;"></p>
-            </div>
+				<table	style="width: 100%; border-collapse: collapse; margin-top: 1rem; table-layout: fixed;">
+					<thead>
+						<tr style="background: #f0f0f0;">
+							<th style="border: 1px solid #ccc; padding: 8px; width: 26%;">Semester</th>
+							<th style="border: 1px solid #ccc; padding: 8px; width: 38%;">Subject
+								Code</th>
+							<th style="border: 1px solid #ccc; padding: 8px; width: 33%;">Mark</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="subject, iterStat : *{subjects}">
+							<td style="border: 1px solid #ccc; padding: 4px;">
+							<input	type="text"	th:field="*{subjects[__${iterStat.index}__].semester}"
+								style="width: 75%;" required /></td>
 
-            <div>
-                <label>Student Name</label>
-                <input type="text" th:field="*{sname}" required/>
-            </div>
+							<td style="border: 1px solid #ccc; padding: 4px;">
+							<input	type="text"	th:field="*{subjects[__${iterStat.index}__].subjectCode}"
+								style="width: 80%;" required /></td>
 
-            <div>
-                <label>Mark 1</label>
-                <input type="number" th:field="*{mark1}" required/>
-                 <p th:if="${#fields.hasErrors('mark1')}" th:errors="*{mark1}" class="error"></p>
-            </div>
+							<td style="border: 1px solid #ccc; padding: 4px;">
+							<input	type="number" th:field="*{subjects[__${iterStat.index}__].mark}"
+								style="width: 85%;" required /></td>
+						</tr>
+					</tbody>
+				</table>
 
-            <div>
-                <label>Mark 2</label>
-                <input type="number" th:field="*{mark2}" required/>
-                <p th:if="${#fields.hasErrors('mark2')}" th:errors="*{mark2}" class="error"></p>
-            </div>
+				<div style="margin-top: 1rem;">
+				
+			<button type="submit" formaction="/addSubjectRow">➕ Add subject Row</button> 
+				</div>
+			</fieldset>
 
+			<div style="margin-top: 1rem;">
+				<button type="submit">💾 Save Student</button>
 
+				<button type="button" th:onclick="|window.location.href='@{/viewHomePage}'|">🔙	Go Back</button>
+			</div>
+			<p th:if="${regnewmsg}" th:text="${regnewmsg}" class="success"></p>
 
-            <button type="submit">💾 Save Student</button>
-            
-			<button type="button" th:onclick="|window.location.href='@{/viewHomePage}'|"> 🔙 Go Back</button>
-             
-             <p th:if="${regnewmsg}" th:text="${regnewmsg}" class="success"></p>
-
-             
-        </form>
-    </div>
+		</form>
+	</div>
 </body>
 </html>
